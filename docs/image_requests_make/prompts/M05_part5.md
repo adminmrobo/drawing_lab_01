@@ -16,11 +16,3 @@
 ```
 Three young adult women named Haru, Sia and Moa standing side by side, worried. Anime style. No text.
 ```
-
----
-## p5_haru_face_inpaint_b — 얼굴만 다시 그리기
-첨부: p5_haru_face_inpaint 첫 번째 패널(원본 미소) 또는 refs/haru_anime_base.png
-방법: 그림 생성이 아니라 '부분 수정(영역 칠하기)' 기능으로
-```
-Paint the mask over the whole head including the hair buns and the bangs. Instruction: make her look worried.
-```

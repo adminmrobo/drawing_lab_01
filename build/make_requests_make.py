@@ -17,6 +17,8 @@ for no in range(1, 7):
     for t in MAKE[no]:
         a = PROMPTS[t["key"]]; ratio = "16:9" if "16:9" in a[4].split("\n")[0] else "2:3"
         for k in t["b_imgs"]:
+            if k in PROMPTS:
+                continue
             n += 1
             if k == "p5_trio_same_emotion_b":
                 att = "없음 — 일부러 참고 그림 없이, 새 대화에서"; how = "원리를 뺀 비교: 첨부 없이 이름과 감정 낱말만"

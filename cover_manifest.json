@@ -99,11 +99,10 @@
   ],
   "images": {
     "requests": "docs/image_requests (33장)",
-    "make_requests": "docs/image_requests_make (12장)",
+    "make_requests": "docs/image_requests_make (11장)",
     "received": 44,
-    "missing": [
-      "p5_haru_face_inpaint_b"
-    ]
+    "missing": [],
+    "note": "p5 얼굴 B 결과는 f8_mask_changed_hair로 대신 표시. 원본 해상도 유지, 표지 무손실"
   },
   "version": "v1.0",
   "date": "2026-11-23"

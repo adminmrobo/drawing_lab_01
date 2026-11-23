@@ -339,7 +339,7 @@ def make_section(P):
         bbox = f'<div class="promptbox"><b>{E(t["b_title"])}</b><pre>{E(t["b_text"])}</pre><button type="button" class="btn copy">복사하기</button></div>'
         if len(t["b_imgs"]) == 1:
             k = t["b_imgs"][0]
-            bpart = f'<div class="pair">{bbox}<div>{art(k, "비교 결과 — " + t["b_title"], "2/3" if k == "p5_haru_face_inpaint_b" else ar, "B 결과")}</div></div>'
+            bpart = f'<div class="pair">{bbox}<div>{art(k, PROMPTS[k][3] if k in PROMPTS else "비교 결과 — " + t["b_title"], "2/3" if k.startswith("f") else ar, "B 결과 — 6부 f8 그림으로 대신 보기" if k == "f8_mask_changed_hair" else "B 결과")}</div></div>'
         else:
             bpart = bbox + bimgs
         out += f"""<div class="failcard" id="make{i}"><h3>실습 {i} · {E(t['title'])}</h3><p>{E(t['goal'])}</p>
