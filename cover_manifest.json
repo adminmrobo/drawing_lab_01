@@ -52,55 +52,58 @@
       "page": "index.html",
       "key": "cover_index",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "01_body_mood.html",
       "key": "cover_01",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "02_six_emotions.html",
       "key": "cover_02",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "03_eyes.html",
       "key": "cover_03",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "04_light_mood.html",
       "key": "cover_04",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "05_ai_vfx.html",
       "key": "cover_05",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "06_failure_lab.html",
       "key": "cover_06",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     },
     {
       "page": "practice/index.html",
       "key": "cover_07",
       "style": "16-bit RPG pixel art",
-      "status": "요청문 준비(그림 준비 중)"
+      "status": "반영 완료(2026-11-23)"
     }
   ],
   "images": {
     "requests": "docs/image_requests (33장)",
     "make_requests": "docs/image_requests_make (12장)",
-    "received": 0
+    "received": 44,
+    "missing": [
+      "p5_haru_face_inpaint_b"
+    ]
   },
   "version": "v1.0",
   "date": "2026-11-23"

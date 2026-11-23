@@ -35,7 +35,8 @@
 ## 그림
 - 그림 33장(표지 8 + 본문 17 + 실패 8)은 Genspark로 만듭니다. 요청문: `docs/image_requests/` (저장 이름은 `checklist.csv`).
 - 비교 그림(B 결과) 12장 요청문: `docs/image_requests_make/` — 꾸러미 1을 받은 뒤 진행합니다.
-- 그림이 오면 `assets/img/{이름}.webp`로 넣고 `python3 build/build.py`, 표지는 `python3 build/make_og.py`까지 다시 돌립니다.
+- 본문용 33장과 비교용 11장을 반영했습니다(2026-11-23). 남은 그림은 `p5_haru_face_inpaint_b` 1장(부분 수정 기능으로 만드는 비교 그림)입니다.
+- 그림을 바꿀 때는 `assets/img/{이름}.webp`로 넣고 `python3 build/build.py`, 표지는 `python3 build/make_og.py`까지 다시 돌립니다.
 - 표지는 16비트 RPG풍 픽셀아트, 본문은 애니풍(5부 4단계만 네 화풍). 실사풍은 캐릭터를 코스프레한 가상의 성인 모델입니다.
 
 ## 원리와 출처
