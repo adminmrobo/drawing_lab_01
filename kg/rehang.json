@@ -1,0 +1,184 @@
+{
+ "version": "1.0",
+ "made": "2026-11-24",
+ "via": "rehang-2026-11-24",
+ "domains": [
+  "art",
+  "genai"
+ ],
+ "note": "분야 뼈대 주제에 다시 걸기(ai-lab-retrofit 15장). links는 자동 후보이며 틀린 줄은 지우면 된다. 빌드 스크립트가 있는 저장소는 빌드 끝에 rehang.apply_overlay()가 이 파일을 적용한다.",
+ "topics": {
+  "lab:topic/facial-expression": {
+   "ko": "표정",
+   "en": "Facial expression",
+   "domain": [
+    "art"
+   ],
+   "level": 2
+  },
+  "lab:topic/gesture": {
+   "ko": "자세와 움직임선",
+   "en": "Gesture and line of action",
+   "domain": [
+    "art"
+   ],
+   "level": 1
+  },
+  "lab:topic/image-editing-inpainting": {
+   "ko": "이미지 편집·인페인팅",
+   "en": "Image editing and inpainting",
+   "domain": [
+    "genai"
+   ],
+   "level": 3
+  },
+  "lab:topic/light-shadow": {
+   "ko": "빛과 그림자",
+   "en": "Light and shadow",
+   "domain": [
+    "art"
+   ],
+   "level": 2
+  },
+  "lab:topic/perspective": {
+   "ko": "원근",
+   "en": "Perspective",
+   "domain": [
+    "art"
+   ],
+   "level": 1
+  },
+  "lab:topic/prompt-for-images": {
+   "ko": "이미지 프롬프트 작성",
+   "en": "Prompting for images",
+   "domain": [
+    "genai"
+   ],
+   "level": 2
+  },
+  "lab:topic/style-transfer-drawing": {
+   "ko": "스타일 바꾸기",
+   "en": "Changing styles",
+   "domain": [
+    "art"
+   ],
+   "level": 2
+  }
+ },
+ "links": {
+  "lab:concept/anger-stages": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "분노의 두 단계"
+  },
+  "lab:concept/blank-states": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "밝은 멍함과 어두운 멍함"
+  },
+  "lab:concept/eye-foreshortening": {
+   "topic": "lab:topic/perspective",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "각도에 따른 눈 폭"
+  },
+  "lab:concept/eyelid-steps": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "눈꺼풀 단계와 감은 눈 곡선"
+  },
+  "lab:concept/gait-mood": {
+   "topic": "lab:topic/gesture",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "기분과 걸음"
+  },
+  "lab:concept/iris-on-sphere": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "공 위의 눈동자"
+  },
+  "lab:concept/light-direction": {
+   "topic": "lab:topic/light-shadow",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "빛의 방향과 분위기"
+  },
+  "lab:concept/neck-range": {
+   "topic": "lab:topic/gesture",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "목의 가동 범위"
+  },
+  "lab:concept/silhouette-mood": {
+   "topic": "lab:topic/gesture",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "실루엣으로 읽히는 기분"
+  },
+  "lab:concept/surprise-white": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "놀람의 흰자 비율"
+  },
+  "lab:concept/two-lights": {
+   "topic": "lab:topic/light-shadow",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "빛 둘의 명·중·암"
+  },
+  "lab:method/brow-mouth-axes": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "눈썹·입 두 축"
+  },
+  "lab:method/expression-prompt": {
+   "topic": "lab:topic/prompt-for-images",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "표정 문장 여섯 조각"
+  },
+  "lab:method/eyes-by-mood": {
+   "topic": "lab:topic/facial-expression",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "기분별 눈 모양"
+  },
+  "lab:method/face-inpaint": {
+   "topic": "lab:topic/image-editing-inpainting",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "얼굴만 다시 그리기"
+  },
+  "lab:method/head-neck-shoulder": {
+   "topic": "lab:topic/gesture",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "머리·목·어깨 세 선"
+  },
+  "lab:method/rim-reflector": {
+   "topic": "lab:topic/light-shadow",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "역광·테두리 빛·반사판"
+  },
+  "lab:method/style-exaggeration": {
+   "topic": "lab:topic/style-transfer-drawing",
+   "score": 3,
+   "why": "사람이 고름",
+   "ko": "화풍별 과장 배수"
+  }
+ },
+ "retag": {
+  "from": [],
+  "to": [
+   "art"
+  ]
+ }
+}
