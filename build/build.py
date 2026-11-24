@@ -7,7 +7,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content_a import P1, P2, P3
 from content_b import P4, P5, P6
 from content_make import MAKE
-from content_drill import DRILL, ACTUAL, SUBST
+from content_drill import DRILL, ACTUAL, SUBST, RETRY
+from make_requests_retry import R as RETRY_PROMPTS
 from make_requests import PROMPTS, CONV_OF, ATTACH_OF
 STYLES = [("pixel", "픽셀"), ("anime", "애니풍"), ("semireal", "반실사"), ("photo", "실사풍")]
 
@@ -350,6 +351,16 @@ def make_section(P):
     return out + "</div></section>"
 
 
+def retry_block(k, ar, pre=""):
+    if k not in RETRY:
+        return ""
+    rk, txt = RETRY[k]
+    pr = [r for r in RETRY_PROMPTS if r[0] == rk][0]
+    head = txt.split(":", 1)[0]
+    return f"""<div class="pair" style="margin-top:12px"><div><h4>다시 시도하기 — 1차에서 약했던 점을 고친 프롬프트</h4><p class="hint">1차에서 약했던 점: {E(pr[3].split(' — ', 1)[-1])} · 첨부: {E(pr[2])}</p><div class="promptbox"><pre>{E(pr[4])}</pre><button type="button" class="btn copy">복사하기</button></div></div>
+<div>{art(rk, head + " — 다시 시도한 그림", ar, head, pre, "tall" if ar == "2/3" else "")}</div></div>
+<p style="background:#ecf7ef;border-left:4px solid var(--green);padding:8px 12px;border-radius:6px">{E(txt)}</p>"""
+
 def drill_section(no, pre=""):
     xs = DRILL.get(no)
     if not xs:
@@ -372,8 +383,8 @@ def drill_section(no, pre=""):
         out += f"""<div class="failcard" id="drill{i}"><h3>연습 {i} · {E(x['title'])}</h3>
 <p class="muted">난이도 {E(x['level'])} · 걸리는 시간 약 {E(x['time'])} · 원리: {links}</p><p>{E(x['goal'])}</p>
 <p class="hint">첨부: {E(x['attach'])}</p><h4>따라 하기</h4><ol>{steps}</ol>
-<div class="pair"><div><h4>예상 결과</h4><p>{E(desc)}</p><h4>확인표</h4><ol>{chk}</ol></div><div>{art(SUBST.get(k, k), PROMPTS[SUBST[k]][3] if k in SUBST else alt, ar, "대신 보기 — 5부 2단계 그림" if k in SUBST else "예상 결과 — Genspark로 만든 실제 그림", pre, "tall" if ar == "2/3" else "")}</div></div>
-{('<p style="background:#fff7ec;border-left:4px solid var(--orange);padding:8px 12px;border-radius:6px">' + E(ACTUAL[k]) + '</p>') if k in ACTUAL else ''}<h4>흔한 실수와 고치는 법</h4><ul>{mis}</ul></div>"""
+<div class="pair"><div><h4>예상 결과</h4><p>{E(desc)}</p><h4>확인표</h4><ol>{chk}</ol></div><div>{art(SUBST.get(k, k), PROMPTS[SUBST[k]][3] if k in SUBST else alt, ar, ("1차 결과 — 약했던 그림" if k in RETRY else "대신 보기 — 5부 2단계 그림" if k in SUBST else "예상 결과 — Genspark로 만든 실제 그림"), pre, "tall" if ar == "2/3" else "")}</div></div>
+{('<p style="background:#fff7ec;border-left:4px solid var(--orange);padding:8px 12px;border-radius:6px">' + E(ACTUAL[k].replace("실제 결과:", "1차 결과:", 1) if k in RETRY else ACTUAL[k]) + '</p>') if k in ACTUAL else ''}{retry_block(k, ar, pre)}<h4>흔한 실수와 고치는 법</h4><ul>{mis}</ul></div>"""
     return out + "</div></section>"
 
 def build_part(P):
