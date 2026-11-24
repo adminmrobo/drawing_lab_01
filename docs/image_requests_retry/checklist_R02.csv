@@ -1,0 +1,5 @@
+order,file,ratio,why,status
+1,d7_stage_to_prompt_retry2,2:3,7부 연습 1 — 2차에서도 허리부터 앞으로 숙이는 자세가 안 나왔음 → 옆에서 본 구도로 바꿈,
+2,d4_doctor_light_swap_retry2,16:9,4부 연습 2 — 2차에서 배경까지 어두워져 왼쪽의 따뜻함이 줄었음 → 두 판의 배경을 따로 정함,
+3,d1_haru_same_smile_two_moods_retry2,16:9,1부 연습 2 — 2차에서도 어깨 높이 차이가 작았음 → 팔과 어깨가 다 보이는 허리 위 구도로 바꿈,
+4,d5_haru_inpaint_two_steps_retry,16:9,5부 연습 2 — 1회차에서 무릎 위까지 나왔고 둘째 컷의 눈이 웃지 않았음 → 가슴 위로 자르고 둘째 컷 눈을 못 박음,

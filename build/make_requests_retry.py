@@ -43,3 +43,31 @@ if __name__ == "__main__":
         w = csv.writer(f); w.writerow(["order", "file", "ratio", "why", "status"]); w.writerows(rows)
     open(os.path.join(D, "README.md"), "w").write("# 그림 요청 꾸러미 4 — 연습 과제 재요청 (" + str(len(R)) + "장)\n\n1차 결과가 약했던 6장과 빠졌던 1장입니다. **1차 그림은 지우지 않고** 페이지에 '1차 결과'로 남기고, 이번 그림은 '2차 결과'로 나란히 둡니다.\n\n- 요청: `prompts/R01_drill_retry.md` (Genspark 대화 하나)\n- 저장 이름: `checklist.csv`의 `file` 이름 그대로(`*_retry`). 5부 연습 2만 처음 받는 그림이라 이름에 `_retry`가 없습니다.\n- 성공한 7장(1부 연습 1, 2부 둘, 3부 연습 2, 5부 연습 1, 6부 연습 1, 7부 연습 2)은 다시 만들지 않습니다.\n")
     print(len(R))
+
+# ── 3차(재요청 2회차): 2차에서도 일부만 된 4장. 방법 자체를 바꾼다(구도·크롭·판 나누기) ──
+R2 = [
+ ("d7_stage_to_prompt_retry2", "2:3", "refs/sia_anime_base.png, refs/sia_sheet.png",
+  "7부 연습 1 — 2차에서도 허리부터 앞으로 숙이는 자세가 안 나왔음 → 옆에서 본 구도로 바꿈",
+  P("2:3", "SIDE VIEW (profile, facing the viewer's left), knees up, of " + who("sia") + ", clearly worried.\nHer upper body is bent forward from the hips at about 20 degrees, so her head is clearly in front of her feet; her back is gently rounded; both hands are clasped tightly in front of her chest; her head is lowered; her shoulders are raised and tense.\nFace (seen in profile): inner eyebrow raised, lips pressed, eyes looking down, a small sweat drop near the temple.\nSoft light from the upper left. Plain off-white background.")),
+ ("d4_doctor_light_swap_retry2", "16:9", "refs/doctor_sheet.png",
+  "4부 연습 2 — 2차에서 배경까지 어두워져 왼쪽의 따뜻함이 줄었음 → 두 판의 배경을 따로 정함",
+  P("16:9", "Two SEPARATE panels side by side with a thin white gap, the same upper-body portrait of " + who("doctor") + ", EXACTLY the same calm slight smile and pose.\nLEFT PANEL: warm cream background, bright and cheerful; soft warm light from the upper left; gentle shadows fall down and to the right.\nRIGHT PANEL: dark charcoal background; the ONLY light is a strong flashlight directly below his chin (do not draw the flashlight); bright underside of the chin, nostrils and cheekbones; dark shadows cast UPWARD over the nose, eyes and forehead; the top of his head fades into darkness. Eerie ghost-story mood.\nThe left panel must stay bright and warm.")),
+ ("d1_haru_same_smile_two_moods_retry2", "16:9", "refs/haru_anime_base.png, refs/haru_sheet.png",
+  "1부 연습 2 — 2차에서도 어깨 높이 차이가 작았음 → 팔과 어깨가 다 보이는 허리 위 구도로 바꿈",
+  P("16:9", "Two waist-up portraits of " + who("haru") + " side by side, both arms and both shoulders fully visible, EXACTLY the same gentle closed-mouth smile.\nLEFT (bright): BOTH shoulders lifted high toward the ears in a happy shrug, elbows bent, hands loosely in front of her chest, chin lifted, head tilted to one side.\nRIGHT (lonely): BOTH shoulders sloping low, arms hanging straight down, back rounded, head lowered, eyes looking down.\nDraw the two shoulder lines at clearly different heights: the left figure's shoulders sit much higher than the right figure's.\nSame soft light from the upper left. Plain off-white background.")),
+ ("d5_haru_inpaint_two_steps_retry", "16:9", "refs/haru_anime_base.png, refs/haru_sheet.png",
+  "5부 연습 2 — 1회차에서 무릎 위까지 나왔고 둘째 컷의 눈이 웃지 않았음 → 가슴 위로 자르고 둘째 컷 눈을 못 박음",
+  P("16:9", "Three panels in a row of the SAME chest-up portrait of " + who("haru") + ", face large in each panel. Hair buns, navy streaks, face shape, eye color, outfit, framing and lighting are IDENTICAL in all three.\n1) bright open-mouth smile, eyes closed into happy upward crescents.\n2) the eyes are EXACTLY the same happy upward crescents as panel 1, but ONLY the mouth changed: lips pressed together, corners slightly down (an awkward mixed face).\n3) the mouth stays as in panel 2 and NOW the eyes open and the eyebrows change: inner eyebrows raised and drawn together, eyes looking slightly down — a worried face.\nThin white gaps between panels, no labels, no arrows. Plain off-white background.")),
+]
+
+if __name__ == "__main__":
+    md = "# R02 · 연습 과제 재요청 2회차 (" + str(len(R2)) + "장)\n\n2차에서도 일부만 된 그림입니다. 이번에는 문장을 세게 하는 대신 **구도를 바꿉니다**(옆모습, 허리 위, 가슴 위, 판 나누기).\n\n**Genspark에 먼저 붙여 넣기 ↓**\n```\n해설 페이지 '프롬프트 연습 과제'의 그림을 한 번 더 다시 만들어 줘. 두 번 시도해도 약했던 점을, 이번에는 구도를 바꿔서 해결하려는 프롬프트야.\n- 비율은 각 프롬프트 첫 줄을 따를 것(16:9는 가로 1920px 이상, 2:3은 세로 1536px 이상)\n- 첨부한 참고 이미지의 캐릭터 외형(얼굴·머리·색·장식)을 똑같이 지킬 것\n- 등장인물은 모두 20대 성인(박사는 성인 남성). 노출·과장된 체형·교복 느낌 금지\n- 대문자로 강조한 부분(SIDE VIEW, BOTH, EXACTLY, ONLY 등)이 핵심이니 꼭 지킬 것\n- 그림 안에 글자·숫자·로고·말풍선 금지\n아래 영어 프롬프트를 하나씩 써 줘.\n```\n"
+    rows = []
+    for i, (k, ratio, att, why, prompt) in enumerate(R2, 1):
+        rows.append([i, k, ratio, why, ""])
+        md += f"\n---\n## {i}) {k}\n이유: {why}\n첨부: {att}\n```\n{prompt}\n```\n"
+    md += "\n---\n**이번에도 안 되면:** 그대로 주세요. 1·2·3차를 나란히 두고, 도구가 끝내 따르지 않는 지시와 그때의 대처(부분 수정, 손 그림 보정)를 적겠습니다.\n"
+    open(os.path.join(D, "prompts", "R02_drill_retry2.md"), "w").write(md)
+    with open(os.path.join(D, "checklist_R02.csv"), "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["order", "file", "ratio", "why", "status"]); w.writerows(rows)
+    print("R02", len(R2))
