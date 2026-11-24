@@ -100,11 +100,11 @@
   "images": {
     "requests": "docs/image_requests (33장)",
     "make_requests": "docs/image_requests_make (11장)",
-    "received": 64,
+    "received": 68,
     "missing": [],
     "note": "p5 얼굴 B 결과는 f8_mask_changed_hair로 대신 표시. 원본 해상도 유지, 표지 무손실",
     "drill_requests": "docs/image_requests_drill 14장 모두 반영",
-    "retry": "docs/image_requests_retry 7장 반영(1차 6장은 그대로 두고 2차를 나란히 표시)"
+    "retry": "재요청 1회차 7장 + 2회차 4장 반영(앞 차수는 그대로 두고 차례로 표시)"
   },
   "version": "v1.0",
   "date": "2026-11-23"

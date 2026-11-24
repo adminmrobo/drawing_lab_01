@@ -8,7 +8,8 @@ from content_a import P1, P2, P3
 from content_b import P4, P5, P6
 from content_make import MAKE
 from content_drill import DRILL, ACTUAL, SUBST, RETRY
-from make_requests_retry import R as RETRY_PROMPTS
+from make_requests_retry import R, R2
+RETRY_PROMPTS = R + R2
 from make_requests import PROMPTS, CONV_OF, ATTACH_OF
 STYLES = [("pixel", "픽셀"), ("anime", "애니풍"), ("semireal", "반실사"), ("photo", "실사풍")]
 
@@ -354,12 +355,14 @@ def make_section(P):
 def retry_block(k, ar, pre=""):
     if k not in RETRY:
         return ""
-    rk, txt = RETRY[k]
-    pr = [r for r in RETRY_PROMPTS if r[0] == rk][0]
-    head = txt.split(":", 1)[0]
-    return f"""<div class="pair" style="margin-top:12px"><div><h4>다시 시도하기 — 1차에서 약했던 점을 고친 프롬프트</h4><p class="hint">1차에서 약했던 점: {E(pr[3].split(' — ', 1)[-1])} · 첨부: {E(pr[2])}</p><div class="promptbox"><pre>{E(pr[4])}</pre><button type="button" class="btn copy">복사하기</button></div></div>
+    out = ""
+    for rk, txt in RETRY[k]:
+        pr = [r for r in RETRY_PROMPTS if r[0] == rk][0]
+        head = txt.split(":", 1)[0]
+        out += f"""<div class="pair" style="margin-top:12px"><div><h4>다시 시도하기 — {E(head.split("(")[0])}에 쓴 프롬프트</h4><p class="hint">앞 결과에서 약했던 점: {E(pr[3].split(" — ", 1)[-1])} · 첨부: {E(pr[2])}</p><div class="promptbox"><pre>{E(pr[4])}</pre><button type="button" class="btn copy">복사하기</button></div></div>
 <div>{art(rk, head + " — 다시 시도한 그림", ar, head, pre, "tall" if ar == "2/3" else "")}</div></div>
 <p style="background:#ecf7ef;border-left:4px solid var(--green);padding:8px 12px;border-radius:6px">{E(txt)}</p>"""
+    return out
 
 def drill_section(no, pre=""):
     xs = DRILL.get(no)
