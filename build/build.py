@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content_a import P1, P2, P3
 from content_b import P4, P5, P6
 from content_make import MAKE
+from content_drill import DRILL
 from make_requests import PROMPTS, CONV_OF, ATTACH_OF
 STYLES = [("pixel", "픽셀"), ("anime", "애니풍"), ("semireal", "반실사"), ("photo", "실사풍")]
 
@@ -348,12 +349,39 @@ def make_section(P):
 {bpart}<h4>결과에서 확인할 것</h4><ol>{chk}</ol>{tip}</div>"""
     return out + "</div></section>"
 
+
+def drill_section(no, pre=""):
+    xs = DRILL.get(no)
+    if not xs:
+        return ""
+    refs = " · ".join(f'<a href="{pre}assets/refs/{f}" download>{f.replace(".png", "")}</a>' for f in REFS_DL)
+    out = f"""<section class="room" id="drill"><div class="wrap"><div class="roomno">{no}부 · 연습 과제</div><h2>프롬프트 연습 과제 — 직접 써 보기 2개</h2>
+<div class="box"><p>'직접 만들어 보기'가 이미 만든 프롬프트를 비교하는 실습이라면, 연습 과제는 <b>여러분이 직접 문장을 쓰고 이어 붙이는</b> 연습입니다. 단계를 차례로 따라 하고, 마지막에 <b>예상 결과 그림</b>과 견주어 확인표로 점검하세요.</p>
+<ol style="margin:6px 0 0;padding-left:20px"><li>새 대화를 열고 '첨부'에 적힌 참고 그림을 올립니다.</li><li>단계 1의 문장을 붙여 넣어 만들고, 다음 단계는 <b>같은 대화에 이어 붙입니다</b>(새 대화라고 적힌 단계만 새로 엽니다).</li><li>한 번에 하나만 바꿉니다. 구도가 흔들리면 'Keep the same framing'을 덧붙입니다.</li><li>예상 결과와 똑같을 필요는 없습니다. 확인표의 세 가지가 맞으면 성공입니다.</li></ol>
+<p class="hint" style="margin-top:8px">참고 그림 내려받기: {refs}</p></div>"""
+    for i, x in enumerate(xs, 1):
+        links = " · ".join(f'<a href="{h if h.startswith("#") else pre + h}">{E(t)}</a>' for h, t in x["links"])
+        steps = ""
+        for j, (d, pr) in enumerate(x["steps"], 1):
+            body = f'<div class="promptbox"><pre>{E(pr)}</pre><button type="button" class="btn copy">복사하기</button></div>' if pr else ""
+            steps += f'<li><p style="margin:4px 0">{E(d)}</p>{body}</li>'
+        chk = "".join(f"<li>{E(c)}</li>" for c in x["check"])
+        mis = "".join(f"<li><b>{E(a)}</b> → {E(b)}</li>" for a, b in x["mistakes"])
+        k, alt, desc = x["expect"]
+        ar = "16/9" if x["ratio"] == "16:9" else "2/3"
+        out += f"""<div class="failcard" id="drill{i}"><h3>연습 {i} · {E(x['title'])}</h3>
+<p class="muted">난이도 {E(x['level'])} · 걸리는 시간 약 {E(x['time'])} · 원리: {links}</p><p>{E(x['goal'])}</p>
+<p class="hint">첨부: {E(x['attach'])}</p><h4>따라 하기</h4><ol>{steps}</ol>
+<div class="pair"><div><h4>예상 결과</h4><p>{E(desc)}</p><h4>확인표</h4><ol>{chk}</ol></div><div>{art(k, alt, ar, "예상 결과 — Genspark로 만든 그림", pre, "tall" if ar == "2/3" else "")}</div></div>
+<h4>흔한 실수와 고치는 법</h4><ul>{mis}</ul></div>"""
+    return out + "</div></section>"
+
 def build_part(P):
     t = f"{SERIES} {P['no']}부 — {P['title']}"
     s = head(t, P["desc"], P["og"], P["file"])
     navl = [(f"#{x['id']}", f"{k+1}단계") for k, x in enumerate(P["steps"])]
     if P.get("fails"): navl += [("#fails", "실패 8종")]
-    navl += [("#make", "직접 만들기"), ("#judge", "평가"), ("#sum", "정리"), (P["next"][0], "다음 →")]
+    navl += [("#make", "직접 만들기"), ("#drill", "연습 과제"), ("#judge", "평가"), ("#sum", "정리"), (P["next"][0], "다음 →")]
     s += nav(navl)
     s += cover(P["cover_key"], P["cover_cap"], P["cover_cast"])
     s += f"""<header class="hero"><div class="wrap"><span class="kicker">{E(P['kicker'])}</span><h1>{E(P['title'])}</h1><p class="lead">{E(P['lead'])}</p>
@@ -369,6 +397,7 @@ def build_part(P):
         d = P["drift"]
         s += f'<div class="failcard" id="drift"><h3>{E(d["title"])}</h3>' + "".join(f"<p>{E(x)}</p>" for x in d["body"]) + '<p><span class="chip">연결된 원리</span><a href="05_ai_vfx.html#s1">5부 1단계 표정 문장</a></p></div></div></section>'
     s += make_section(P)
+    s += drill_section(P["no"])
     s += judge(P["judge"]) + summary(P) + outro(P)
     s += kg_block(P["file"].replace(".html", ""), [P["file"]])
     s += footer()
@@ -438,7 +467,7 @@ def build_practice():
     t = f"{SERIES} 7부 — 실전 연습장"
     d = "무대(자세로 기분 연기), 표정 공방(눈썹·입·눈 맞추기), 조명실(빛과 터치로 분위기), 진단 데스크(실패 맞히기) 네 곳을 직접 운영하며 1~6부를 함께 연습합니다."
     s = head(t, d, "og_07.jpg", "practice/index.html", pre)
-    s += nav([("#stage", "무대"), ("#faceshop", "표정 공방"), ("#lightroom", "조명실"), ("#desk", "진단 데스크"), ("#wrap", "마무리")], pre)
+    s += nav([("#stage", "무대"), ("#faceshop", "표정 공방"), ("#lightroom", "조명실"), ("#desk", "진단 데스크"), ("#drill", "연습 과제"), ("#wrap", "마무리")], pre)
     s += cover("cover_07", "연구실 연습장 · 무대·거울·조명·진단 책상", [("haru", "e19"), ("doctor", "e16"), ("fruitfly", "e09"), ("jupanbot", "e16")], pre)
     s += f"""<header class="hero"><div class="wrap"><span class="kicker">7부 · 마지막 장</span><h1>실전 연습장</h1>
 <p class="lead">네 곳의 작업장을 직접 운영합니다. <span style="color:var(--green)">초록 조작판</span>은 주어진 환경, <span style="color:var(--blue)">파랑 조작판</span>은 내 결정입니다. 미션은 직접 조작해야 판정됩니다.</p>
@@ -481,8 +510,8 @@ def build_practice():
             '<div style="width:100%"><p class="sym" style="font-weight:600"></p><div class="opts deskopts"></div></div>',
             ["3개 연속 정답", "8종 원인을 모두 한 번 이상 맞히기", "틀리지 않고 5개 맞히기"],
             [("06_failure_lab.html#s1", "6부 진단 순서"), ("06_failure_lab.html#fails", "6부 실패 8종")])
-    s += f"""</div></section>
-<section id="wrap"><div class="wrap"><h2>마무리 — 네 작업장을 하나로 묶으면</h2>
+    s += "</div></section>" + drill_section(7, pre)
+    s += f"""<section id="wrap"><div class="wrap"><h2>마무리 — 네 작업장을 하나로 묶으면</h2>
 <div class="box"><p>무대에서 정한 자세는 표정 문장의 '몸' 조각이 되고, 표정 공방의 값은 '얼굴'·'눈' 조각과 VFX 표정 값이 되며, 조명실의 선택은 '빛' 조각이 됩니다. 진단 데스크에서 틀린 원인은 대부분 앞의 세 곳 중 하나가 빠진 경우입니다. 기분 그림은 결국 <b>몸이 방향을 정하고, 얼굴과 눈이 감정을 가르고, 빛이 분위기를 더하는</b> 기록입니다.</p>
 <p><b>실제 그림으로 이어 가기</b> — 5부 1단계 실험에서 표정 문장을 조립해 그림 생성 AI에 넣어 보세요. 결과는 각 부의 '프롬프트로 직접 만들어 보기' 확인표로 점검합니다: <a href="{pre}01_body_mood.html#make">1부</a> · <a href="{pre}02_six_emotions.html#make">2부</a> · <a href="{pre}03_eyes.html#make">3부</a> · <a href="{pre}04_light_mood.html#make">4부</a> · <a href="{pre}05_ai_vfx.html#make">5부</a> · <a href="{pre}06_failure_lab.html#make">6부</a></p>
 <p class="hint">주의할 점: 이 연습장의 기분 판정·닮음 점수·분위기 판정은 원리를 보이기 위해 크게 단순화한 규칙입니다. 숫자는 교육용 예시이며, 실제 그림에서는 장면의 앞뒤와 인물 설정이 함께 기분을 정합니다.</p></div>
