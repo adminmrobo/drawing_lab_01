@@ -1,0 +1,8 @@
+order,file,ratio,why,status
+1,d1_haru_same_smile_two_moods_retry,16:9,1부 연습 2 — 어깨 차이가 작아 쓸쓸함이 약했음,
+2,d3_sia_side_glance_retry,16:9,3부 연습 1 — 눈동자가 눈꼬리 쪽으로 몰리지 않아 곁눈질이 약했음,
+3,d4_haru_backlit_question_retry,2:3,4부 연습 1 — 테두리 빛은 있었지만 얼굴이 앞에서 밝게 비춰졌음,
+4,d4_doctor_light_swap_retry,16:9,4부 연습 2 — 아래 빛의 위로 뻗는 그림자가 약해 섬뜩함이 부족했음,
+5,d6_adult_pout_retry,2:3,6부 연습 2 — 성인 비율은 지켰지만 표정이 옅어 시큰둥에 가까웠음,
+6,d7_stage_to_prompt_retry,2:3,7부 연습 1 — 자세는 맞았지만 얼굴이 차분하고 몸이 앞으로 기울지 않았음,
+7,d5_haru_inpaint_two_steps,16:9,5부 연습 2 — 1차에 그림이 빠졌음(처음 요청),
