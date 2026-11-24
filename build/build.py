@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from content_a import P1, P2, P3
 from content_b import P4, P5, P6
 from content_make import MAKE
-from content_drill import DRILL
+from content_drill import DRILL, ACTUAL, SUBST
 from make_requests import PROMPTS, CONV_OF, ATTACH_OF
 STYLES = [("pixel", "픽셀"), ("anime", "애니풍"), ("semireal", "반실사"), ("photo", "실사풍")]
 
@@ -372,8 +372,8 @@ def drill_section(no, pre=""):
         out += f"""<div class="failcard" id="drill{i}"><h3>연습 {i} · {E(x['title'])}</h3>
 <p class="muted">난이도 {E(x['level'])} · 걸리는 시간 약 {E(x['time'])} · 원리: {links}</p><p>{E(x['goal'])}</p>
 <p class="hint">첨부: {E(x['attach'])}</p><h4>따라 하기</h4><ol>{steps}</ol>
-<div class="pair"><div><h4>예상 결과</h4><p>{E(desc)}</p><h4>확인표</h4><ol>{chk}</ol></div><div>{art(k, alt, ar, "예상 결과 — Genspark로 만든 그림", pre, "tall" if ar == "2/3" else "")}</div></div>
-<h4>흔한 실수와 고치는 법</h4><ul>{mis}</ul></div>"""
+<div class="pair"><div><h4>예상 결과</h4><p>{E(desc)}</p><h4>확인표</h4><ol>{chk}</ol></div><div>{art(SUBST.get(k, k), PROMPTS[SUBST[k]][3] if k in SUBST else alt, ar, "대신 보기 — 5부 2단계 그림" if k in SUBST else "예상 결과 — Genspark로 만든 실제 그림", pre, "tall" if ar == "2/3" else "")}</div></div>
+{('<p style="background:#fff7ec;border-left:4px solid var(--orange);padding:8px 12px;border-radius:6px">' + E(ACTUAL[k]) + '</p>') if k in ACTUAL else ''}<h4>흔한 실수와 고치는 법</h4><ul>{mis}</ul></div>"""
     return out + "</div></section>"
 
 def build_part(P):
